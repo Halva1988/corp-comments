@@ -1,0 +1,20 @@
+.footer {
+	position: absolute;
+	width: 400px;
+	transform: rotate(-90deg);
+	left: -225px;
+	bottom: 174px;
+}
+
+.footer > small > p {
+	opacity: 0.4;
+}
+
+.footer > small > p > span {
+	font-weight: 600;
+	font-style: italic;
+}
+
+.footer a {
+	text-decoration: underline;
+}
