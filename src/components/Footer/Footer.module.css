@@ -1,16 +1,18 @@
 .footer {
-	position: absolute;
-	width: 400px;
-	transform: rotate(-90deg);
-	left: -225px;
-	bottom: 174px;
+	writing-mode: vertical-lr;
+	transform: rotate(180deg);
+}
+
+.footer > small > p:first-child {
+	margin-top: 22px;
 }
 
 .footer > small > p {
 	opacity: 0.4;
 }
 
-.footer > small > p > span {
+.footer > small > p > span,
+.footer a {
 	font-weight: 600;
 	font-style: italic;
 }

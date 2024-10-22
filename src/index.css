@@ -4,12 +4,6 @@
 	box-sizing: border-box;
 }
 
-#root {
-	display: flex;
-	width: 80%;
-	justify-content: center;
-}
-
 ul,
 ol {
 	list-style: none;
@@ -30,8 +24,15 @@ body {
 }
 
 .app {
-	position: relative;
+	/* position: relative; */
 	display: flex;
 	justify-content: center;
-	height: 850px;
+	gap: 10px;
+}
+
+button {
+  font: inherit;
+  border: initial;
+  outline: initial; 
+  background-color: initial;
 }

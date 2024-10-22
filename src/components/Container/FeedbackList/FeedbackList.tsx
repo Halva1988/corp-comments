@@ -1,8 +1,8 @@
-
+import styles from "./FeedbackList.module.css"
 
 const FeedbackList = () => {
   return (
-    <ol>FeedbackList</ol>
+    <ol className={styles["feedback-list"]}>FeedbackList</ol>
   )
 }
 

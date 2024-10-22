@@ -1,9 +1,19 @@
-// import styles from "./HashtagList.module.css"
+import styles from "./HashtagList.module.css";
 
 const HashtagList = () => {
-  return (
-    <ul>HashtagList</ul>
-  )
-}
+	return (
+		<ul className={styles.hashtags}>
+			<li>
+				<button>#GitHub</button>
+			</li>
+			<li>
+				<button>#Instagram</button>
+			</li>
+			<li>
+				<button>#MacDonald's</button>
+			</li>
+		</ul>
+	);
+};
 
-export default HashtagList
+export default HashtagList;
