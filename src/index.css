@@ -23,8 +23,19 @@ body {
 	align-items: center;
 }
 
+h1 > span {
+  font-style: italic;
+  opacity: 0.85;
+}
+
+textarea {
+  font: inherit;
+  border: initial;
+  resize: none;
+  outline: initial; 
+}
+
 .app {
-	/* position: relative; */
 	display: flex;
 	justify-content: center;
 	gap: 10px;

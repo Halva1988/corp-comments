@@ -1,0 +1,7 @@
+.title {
+  font-weight: 700;
+  font-size: 36px;
+  position: relative;
+  z-index: 1;
+  color: rgba(255, 255, 255, 0.93);
+}
