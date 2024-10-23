@@ -1,43 +1,22 @@
-import { useEffect, useState } from "react";
 import FeedbackItem from "./FeedbackItem/FeedbackItem";
 import styles from "./FeedbackList.module.css";
 import Spinner from "./Spinner/Spinner";
 import ErrorMessage from "./ErrorMessage/ErrorMessage";
+import { TFeedbackItem } from "../../../lib/types";
 
-const FeedbackList = () => {
-	const [feedbackItems, setFeedbackItems] = useState([]);
-	const [isLoading, setIsLoading] = useState(false);
-	const [errorMessage, setErrorMessage] = useState("");
+type FeedbackListProps = {
+	feedbackItems: TFeedbackItem[];
+	isLoading: boolean;
+	errorMessage: string;
+};
 
-	useEffect(() => {
-		const fetchData = async () => {
-			setIsLoading(true);
-
-			try {
-				const response = await fetch("/corp-comments/JSON/base.json");
-
-				if (!response.ok) {
-					throw new Error();
-				}
-
-				const data = await response.json();
-				setFeedbackItems(data);
-			} catch (error) {
-				setErrorMessage("Something went wrong!");
-			}
-
-			setIsLoading(false);
-		};
-
-		fetchData();
-	}, []);
-
+const FeedbackList = ({ feedbackItems, isLoading, errorMessage }: FeedbackListProps) => {
 	return (
 		<ol className={styles["feedback-list"]}>
 			{isLoading && <Spinner />}
 
 			{errorMessage && <ErrorMessage message={errorMessage} />}
-			
+
 			{feedbackItems.map((item) => (
 				<FeedbackItem key={item.id} feedbackItem={item} />
 			))}

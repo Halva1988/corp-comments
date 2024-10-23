@@ -4,13 +4,17 @@ import Logo from "./Logo/Logo";
 import PageHeading from "./PageHeading/PageHeading";
 import Pattern from "./Pattern/Pattern";
 
-const Header = () => {
+type HeaderProps = {
+	handleAddToList: (text: string) => void
+}
+
+const Header = ({handleAddToList}: HeaderProps) => {
 	return (
 		<header className={styles.header}>
 			<Pattern />
 			<Logo />
 			<PageHeading />
-			<FeedbackForm />
+			<FeedbackForm handleAddToList={handleAddToList}/>
 		</header>
 	);
 };

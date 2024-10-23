@@ -1,14 +1,7 @@
-import styles from "./Container.module.css"
-import FeedbackList from "./FeedbackList/FeedbackList"
-import Header from "./Header/Header"
+import styles from "./Container.module.css";
 
-const Container = () => {
-  return (
-    <main className={styles.container}>
-      <Header />
-      <FeedbackList />
-    </main>
-  )
-}
+const Container = ({ children }: { children: React.ReactNode }) => {
+	return <main className={styles.container}>{children}</main>;
+};
 
-export default Container
+export default Container;
