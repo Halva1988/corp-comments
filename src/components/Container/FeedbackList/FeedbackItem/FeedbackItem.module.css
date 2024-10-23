@@ -1,0 +1,146 @@
+.feedback {
+  display: flex;
+  align-items: center;
+  height: 82px;
+  padding-right: 35px;
+  padding-left: 30px;
+  cursor: pointer;
+  border-bottom: 1px solid #e4e7eb;
+  transition: all 0.2s;
+  color: #3a3c42;
+}
+
+.feedback--expand {
+  height: 100px;
+  background-color: #fff;
+}
+
+/* .feedback--expand > div:nth-child(3) > p:last-child {
+  -webkit-line-clamp: initial !important;
+  -webkit-box-orient: initial !important;
+  overflow: initial !important;
+} */
+
+
+.feedback:hover {
+  background-color: #fff;
+}
+
+.feedback:hover > button,
+.feedback:hover > div:nth-child(2),
+.feedback:hover > div:nth-child(3),
+.feedback:hover > p:nth-child(4) {
+  transform: translateX(2px);
+}
+
+.feedback > div:nth-child(2) {
+  height: 49px;
+  width: 49px;
+  border-radius: 6px;
+  background-color: #564989;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 16px;
+  transition: all 0.2s;
+  margin-left: 20px;
+}
+
+.feedback:nth-child(6n + 2) > div:nth-child(2) {
+  background-color: #6d4989;
+}
+
+.feedback:nth-child(6n + 3) > div:nth-child(2) {
+  background-color: #3c7789;
+}
+
+.feedback:nth-child(6n + 4) > div:nth-child(2) {
+  background-color: #897749;
+}
+
+.feedback:nth-child(6n + 5) > div:nth-child(2) {
+  background-color: #4a8b6b;
+}
+
+.feedback:nth-child(6n + 6) > div:nth-child(2) {
+  background-color: #495789;
+}
+
+.feedback > div:nth-child(2) > p {
+  font-size: 24px;
+  color: #fff;
+  font-weight: 700;
+  margin-right: -2px;
+}
+
+.feedback > div:nth-child(3) {
+  transition: all 0.2s;
+}
+
+.feedback > div:nth-child(3) > p:first-child {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-weight: 500;
+  color: #898d96;
+  margin-top: -1px;
+  display: block;
+  transition: all 0.2s;
+}
+
+.feedback > div:nth-child(3) > p:nth-child(2) {
+  color: #141518;
+  font-size: 13px;
+  margin-top: 1px;
+  transition: all 0.2s;
+}
+
+.feedback > p:nth-child(4) {
+  font-size: 12px;
+  color: #898b92;
+  margin-left: auto;
+  transition: all 0.2s;
+}
+
+.feedback > button {
+  cursor: pointer;
+  height: 40px;
+  width: 40px;
+  border-radius: 6px;
+  transition: all 0.2s;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.feedback > button:hover {
+  background-color: #f3f6f8;
+}
+
+.feedback > button:hover svg,
+.feedback > button:hover span {
+  color: #784a86;
+}
+
+.feedback > button:disabled svg {
+  display: none;
+}
+
+.feedback > button:disabled {
+  pointer-events: none;
+}
+
+.feedback > button svg {
+  color: #cbced4;
+  width: 50px;
+  height: 20px;
+  display: block;
+  transition: all 0.2s;
+}
+
+.feedback > button span {
+  color: #6c6f76;
+  font-size: 11px;
+  margin-top: -1px;
+}

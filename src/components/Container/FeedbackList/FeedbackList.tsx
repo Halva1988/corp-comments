@@ -1,27 +1,46 @@
-import { TriangleUpIcon } from "@radix-ui/react-icons";
+import { useEffect, useState } from "react";
+import FeedbackItem from "./FeedbackItem/FeedbackItem";
 import styles from "./FeedbackList.module.css";
+import Spinner from "./Spinner/Spinner";
+import ErrorMessage from "./ErrorMessage/ErrorMessage";
+
 const FeedbackList = () => {
+	const [feedbackItems, setFeedbackItems] = useState([]);
+	const [isLoading, setIsLoading] = useState(false);
+	const [errorMessage, setErrorMessage] = useState("");
+
+	useEffect(() => {
+		const fetchData = async () => {
+			setIsLoading(true);
+
+			try {
+				const response = await fetch("/corp-comments/JSON/base.json");
+
+				if (!response.ok) {
+					throw new Error();
+				}
+
+				const data = await response.json();
+				setFeedbackItems(data);
+			} catch (error) {
+				setErrorMessage("Something went wrong!");
+			}
+
+			setIsLoading(false);
+		};
+
+		fetchData();
+	}, []);
+
 	return (
 		<ol className={styles["feedback-list"]}>
-			<li className={styles.feedback}>
-				<button>
-					<TriangleUpIcon />
-					<span>593</span>
-				</button>
-				<div>
-					<p>B</p>
-				</div>
+			{isLoading && <Spinner />}
 
-				<div>
-					<p>MacDonald</p>
-					<p>
-						Lorem ipsum dolor sit amet consectetur adipisicing elit. Aspernatur
-						ipsum sed adipisci, ea aliquid ducimus.
-					</p>
-				</div>
-
-				<p>4d</p>
-			</li>
+			{errorMessage && <ErrorMessage message={errorMessage} />}
+			
+			{feedbackItems.map((item) => (
+				<FeedbackItem key={item.id} feedbackItem={item} />
+			))}
 		</ol>
 	);
 };
