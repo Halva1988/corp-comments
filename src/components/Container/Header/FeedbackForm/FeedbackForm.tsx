@@ -1,6 +1,6 @@
-import { useState } from "react";
-import styles from "./FeedbackForm.module.css";
 import { LIMIT_TEXT_LENGTH } from "../../../../lib/constants";
+import styles from "./FeedbackForm.module.css";
+import { useState } from "react";
 
 type FeedbackFormProps = {
 	handleAddToList: (text: string) => void;

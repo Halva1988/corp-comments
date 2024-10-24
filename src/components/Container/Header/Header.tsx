@@ -1,8 +1,8 @@
 import FeedbackForm from "./FeedbackForm/FeedbackForm";
-import styles from "./Header.module.css";
-import Logo from "./Logo/Logo";
 import PageHeading from "./PageHeading/PageHeading";
+import styles from "./Header.module.css";
 import Pattern from "./Pattern/Pattern";
+import Logo from "./Logo/Logo";
 
 type HeaderProps = {
 	handleAddToList: (text: string) => void

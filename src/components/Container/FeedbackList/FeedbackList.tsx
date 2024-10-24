@@ -5,19 +5,21 @@ import ErrorMessage from "./ErrorMessage/ErrorMessage";
 import { TFeedbackItem } from "../../../lib/types";
 
 type FeedbackListProps = {
+	filteredItems: TFeedbackItem[];
 	feedbackItems: TFeedbackItem[];
-	isLoading: boolean;
 	errorMessage: string;
+	isLoading: boolean;
 };
 
-const FeedbackList = ({ feedbackItems, isLoading, errorMessage }: FeedbackListProps) => {
+const FeedbackList = ({filteredItems, feedbackItems, isLoading, errorMessage }: FeedbackListProps) => {
 	return (
 		<ol className={styles["feedback-list"]}>
+			
 			{isLoading && <Spinner />}
 
 			{errorMessage && <ErrorMessage message={errorMessage} />}
 
-			{feedbackItems.map((item) => (
+			{filteredItems.length > 0 ? filteredItems.map((item) => <FeedbackItem key={item.id} feedbackItem={item} />) : feedbackItems.map((item) => (
 				<FeedbackItem key={item.id} feedbackItem={item} />
 			))}
 		</ol>

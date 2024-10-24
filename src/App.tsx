@@ -1,13 +1,14 @@
-import { useEffect, useState } from "react";
+import FeedbackList from "./components/Container/FeedbackList/FeedbackList";
+import HashtagList from "./components/HashtagList/HashtagList";
+import Header from "./components/Container/Header/Header";
 import Container from "./components/Container/Container";
 import Footer from "./components/Footer/Footer";
-import HashtagList from "./components/HashtagList/HashtagList";
+import { useEffect, useState } from "react";
 import { TFeedbackItem } from "./lib/types";
-import Header from "./components/Container/Header/Header";
-import FeedbackList from "./components/Container/FeedbackList/FeedbackList";
 
 function App() {
 	const [feedbackItems, setFeedbackItems] = useState<TFeedbackItem[]>([]);
+	const [filteredItems, setFilteredItems] = useState<TFeedbackItem[]>([]);
 	const [isLoading, setIsLoading] = useState(false);
 	const [errorMessage, setErrorMessage] = useState("");
 
@@ -28,37 +29,49 @@ function App() {
 
 		setFeedbackItems([...feedbackItems, newItem]);
 
-		await fetch("https://bytegrad.com/course-assets/projects/corpcomment/api/feedbacks", {
-			method: "POST",
-			headers: {
-				"Content-Type": "application/json",
-			},
-			body: JSON.stringify(newItem),
-		});
+		await fetch(
+			"https://bytegrad.com/course-assets/projects/corpcomment/api/feedbacks",
+			{
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify(newItem),
+			}
+		);
 	};
+	
+	const handleFilter = (text: string) => {
+		setFilteredItems(
+			feedbackItems.filter((item) => item.company.includes(text))
+		);
+	};
+	
+	const allCompany: Set<string> = new Set(
+		feedbackItems.map((item) => item.company)
+	);
 
 	useEffect(() => {
 		const fetchData = async () => {
 			setIsLoading(true);
 
 			try {
-				const response = await fetch("https://bytegrad.com/course-assets/projects/corpcomment/api/feedbacks");
-
-				if (!response.ok) {
-					throw new Error();
-				}
+				const response = await fetch(
+					"https://bytegrad.com/course-assets/projects/corpcomment/api/feedbacks",
+					{
+						cache: "no-store",
+					}
+				);
 
 				const data = await response.json();
-				
+
 				setFeedbackItems(data.feedbacks);
-				console.log(feedbackItems);
 			} catch (error) {
 				setErrorMessage("Something went wrong!");
+			} finally {
+				setIsLoading(false);
 			}
-
-			setIsLoading(false);
 		};
-
 		fetchData();
 	}, []);
 
@@ -68,12 +81,13 @@ function App() {
 			<Container>
 				<Header handleAddToList={handleAddToList} />
 				<FeedbackList
+					filteredItems={filteredItems}
 					feedbackItems={feedbackItems}
 					isLoading={isLoading}
 					errorMessage={errorMessage}
 				/>
 			</Container>
-			<HashtagList />
+			<HashtagList handleFilter={handleFilter} allCompany={allCompany} />
 		</div>
 	);
 }

@@ -1,17 +1,18 @@
+import HashtagItems from "./HashtagItems/HashtagItems";
 import styles from "./HashtagList.module.css";
 
-const HashtagList = () => {
+type HashtagListProps = {
+	allCompany: Set<string>;
+	handleFilter: (text: string) => void;
+};
+
+const HashtagList = ({ handleFilter, allCompany }: HashtagListProps) => {
+
 	return (
 		<ul className={styles.hashtags}>
-			<li>
-				<button>#GitHub</button>
-			</li>
-			<li>
-				<button>#Instagram</button>
-			</li>
-			<li>
-				<button>#MacDonald's</button>
-			</li>
+			{Array.from(allCompany).map((item, index) => (
+				<HashtagItems handleFilter={handleFilter} key={index} company={item} />
+			))}
 		</ul>
 	);
 };

@@ -1,7 +1,8 @@
 .spinner {
 	position: absolute;
-	left: calc(50% - 50px);
-	top: 50%;
+	left: 50%;
+  top: 46%;
+  transform: translateX(-50%) translateZ(0);
 	border-radius: 50%;
 	width: 100px;
 	height: 100px;
