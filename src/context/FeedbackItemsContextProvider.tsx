@@ -24,6 +24,7 @@ const FeedbackItemsContextProvider = ({children}: FeedbackItemsContextProviderPr
 	const [errorMessage, setErrorMessage] = useState("");
 	const [isLoading, setIsLoading] = useState(false);
 
+
 	const handleAddToList = async (text: string) => {
 		const companyName = text
 			.split(" ")
@@ -82,11 +83,11 @@ const FeedbackItemsContextProvider = ({children}: FeedbackItemsContextProviderPr
 		}
 	};
 
-	const handleFilter = (text: string) => {
+	const handleFilter = useMemo(() => (text: string) => {
 		setFilteredItems(
 			feedbackItems.filter((item) => item.company.includes(text))
 		);
-	};
+	}, [feedbackItems]);
 
 	useEffect(() => {
 		const fetchData = async () => {
