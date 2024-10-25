@@ -1,18 +1,14 @@
-import HashtagItems from "./HashtagItems/HashtagItems";
 import styles from "./HashtagList.module.css";
 
 type HashtagListProps = {
-	allCompany: Set<string>;
-	handleFilter: (text: string) => void;
+	children: React.ReactNode
 };
 
-const HashtagList = ({ handleFilter, allCompany }: HashtagListProps) => {
+const HashtagList = ({ children }: HashtagListProps) => {
 
 	return (
 		<ul className={styles.hashtags}>
-			{Array.from(allCompany).map((item, index) => (
-				<HashtagItems handleFilter={handleFilter} key={index} company={item} />
-			))}
+			{children}
 		</ul>
 	);
 };

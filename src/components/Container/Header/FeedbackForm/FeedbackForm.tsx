@@ -4,10 +4,12 @@ import { useState } from "react";
 
 type FeedbackFormProps = {
 	handleAddToList: (text: string) => void;
-}
+};
 
-const FeedbackForm = ({handleAddToList}: FeedbackFormProps) => {
+const FeedbackForm = ({ handleAddToList }: FeedbackFormProps) => {
 	const [text, setText] = useState<string>("");
+	const [isValid, setIsValid] = useState<boolean>(false);
+	const [isInvalid, setIsInvalid] = useState<boolean>(false);
 
 	const handleChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
 		setText(event.target.value);
@@ -15,12 +17,27 @@ const FeedbackForm = ({handleAddToList}: FeedbackFormProps) => {
 
 	const handleSubmit = (event: React.FormEvent) => {
 		event.preventDefault();
+		if (text.includes("#") && text.length >= 5) {
+			setIsValid(true);
+			setTimeout(() => setIsValid(false), 1000);
+		} else {
+			setIsInvalid(true);
+			setTimeout(() => setIsInvalid(false), 1000);
+			return;
+		}
 		handleAddToList(text);
 		setText("");
-	}
+	};
 
 	return (
-		<form onSubmit={handleSubmit} className={styles.form}>
+		<form
+			onSubmit={handleSubmit}
+			className={
+				styles.form +
+				(isInvalid ? " " + styles["form--invalid"] : "") +
+				(isValid ? " " + styles["form--valid"] : "")
+			}
+		>
 			<textarea
 				value={text}
 				onChange={(event) => handleChange(event)}
@@ -29,7 +46,7 @@ const FeedbackForm = ({handleAddToList}: FeedbackFormProps) => {
 			/>
 			<div>
 				<p className={styles.counter}>{LIMIT_TEXT_LENGTH - text.length}</p>
-				<button >
+				<button>
 					<span>Submit</span>
 				</button>
 			</div>

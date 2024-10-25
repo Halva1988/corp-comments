@@ -5,6 +5,7 @@ import Container from "./components/Container/Container";
 import Footer from "./components/Footer/Footer";
 import { useEffect, useState } from "react";
 import { TFeedbackItem } from "./lib/types";
+import HashtagItems from "./components/HashtagList/HashtagItems/HashtagItems";
 
 function App() {
 	const [feedbackItems, setFeedbackItems] = useState<TFeedbackItem[]>([]);
@@ -29,24 +30,28 @@ function App() {
 
 		setFeedbackItems([...feedbackItems, newItem]);
 
-		await fetch(
-			"https://bytegrad.com/course-assets/projects/corpcomment/api/feedbacks",
-			{
+		try {
+			const response = await fetch("http://localhost:3001/", {
 				method: "POST",
 				headers: {
 					"Content-Type": "application/json",
 				},
 				body: JSON.stringify(newItem),
+			});
+			if (!response.ok) {
+				throw new Error("Network response was not ok");
 			}
-		);
+		} catch (error) {
+			console.error("Failed to save feedback item:", error);
+		}
 	};
-	
+
 	const handleFilter = (text: string) => {
 		setFilteredItems(
 			feedbackItems.filter((item) => item.company.includes(text))
 		);
 	};
-	
+
 	const allCompany: Set<string> = new Set(
 		feedbackItems.map((item) => item.company)
 	);
@@ -56,16 +61,13 @@ function App() {
 			setIsLoading(true);
 
 			try {
-				const response = await fetch(
-					"https://bytegrad.com/course-assets/projects/corpcomment/api/feedbacks",
-					{
-						cache: "no-store",
-					}
-				);
+				const response = await fetch("base.json", {
+					cache: "no-store",
+				});
 
 				const data = await response.json();
 
-				setFeedbackItems(data.feedbacks);
+				setFeedbackItems(data);
 			} catch (error) {
 				setErrorMessage("Something went wrong!");
 			} finally {
@@ -87,7 +89,15 @@ function App() {
 					errorMessage={errorMessage}
 				/>
 			</Container>
-			<HashtagList handleFilter={handleFilter} allCompany={allCompany} />
+			<HashtagList>
+				{Array.from(allCompany).map((item, index) => (
+					<HashtagItems
+						handleFilter={handleFilter}
+						key={index}
+						company={item}
+					/>
+				))}
+			</HashtagList>
 		</div>
 	);
 }

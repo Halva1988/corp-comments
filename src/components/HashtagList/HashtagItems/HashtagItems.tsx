@@ -5,9 +5,11 @@ type HashtagItemsProps = {
 }
 
 const HashtagItems = ({handleFilter, company}: HashtagItemsProps) => {
+  const firstLetterUpperCase = company[0].toUpperCase() + company.slice(1).toLowerCase();
+  
   return (
     <li>
-      <button onClick={() => handleFilter(company)}>#{company}</button>
+      <button onClick={() => handleFilter(company)}>#{firstLetterUpperCase}</button>
     </li>
   )
 }
