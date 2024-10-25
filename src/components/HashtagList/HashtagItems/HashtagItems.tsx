@@ -1,10 +1,12 @@
+import { useFeedbackItemsContext } from "../../../hooks/useFeedbackItemsContext";
 
 type HashtagItemsProps = {
-  company: string,
-  handleFilter: (text: string) => void
+  company: string
 }
 
-const HashtagItems = ({handleFilter, company}: HashtagItemsProps) => {
+const HashtagItems = ({ company}: HashtagItemsProps) => {
+  const { handleFilter } = useFeedbackItemsContext();
+
   const firstLetterUpperCase = company[0].toUpperCase() + company.slice(1).toLowerCase();
   
   return (

@@ -1,12 +1,11 @@
+import { useFeedbackItemsContext } from "../../../../hooks/useFeedbackItemsContext";
 import { LIMIT_TEXT_LENGTH } from "../../../../lib/constants";
 import styles from "./FeedbackForm.module.css";
 import { useState } from "react";
 
-type FeedbackFormProps = {
-	handleAddToList: (text: string) => void;
-};
 
-const FeedbackForm = ({ handleAddToList }: FeedbackFormProps) => {
+const FeedbackForm = () => {
+	const { handleAddToList } = useFeedbackItemsContext();
 	const [text, setText] = useState<string>("");
 	const [isValid, setIsValid] = useState<boolean>(false);
 	const [isInvalid, setIsInvalid] = useState<boolean>(false);

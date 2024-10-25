@@ -20,7 +20,7 @@ app.post("/", (req, res) => {
 
 	fs.readFile(dataFilePath, "utf8", (err, data) => {
 		if (err) {
-			return res.status(500).json({ error: "Failed to read data file!!!" });
+			return res.status(500).json({ error: "Failed to read data file!!! in POST" });
 		}
 
 		const items = JSON.parse(data);
@@ -43,7 +43,7 @@ app.patch("/", (req, res) => {
 
 	fs.readFile(dataFilePath, "utf8", (err, data) => {
 		if (err) {
-			return res.status(500).json({ error: "Failed to read data file!!!" });
+			return res.status(500).json({ error: "Failed to read data file!!!  in PATCH" });
 		}
 
 		const items = JSON.parse(data);

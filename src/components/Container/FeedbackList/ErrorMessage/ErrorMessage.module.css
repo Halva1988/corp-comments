@@ -1,5 +1,6 @@
 .error {
 	position: absolute;
 	top: 50%;
-	left: 38%;
+	left: 46%;
+	transform: translateX(-50%) translateZ(0);
 }

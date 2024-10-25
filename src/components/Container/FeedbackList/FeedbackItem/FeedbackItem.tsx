@@ -1,16 +1,20 @@
+import { useFeedbackItemsContext } from "../../../../hooks/useFeedbackItemsContext";
 import { TriangleUpIcon } from "@radix-ui/react-icons";
-import styles from "./FeedbackItem.module.css";
 import { TFeedbackItem } from "../../../../lib/types";
+import styles from "./FeedbackItem.module.css";
 import { useState } from "react";
 
 type FeedbackItemProps = {
 	feedbackItem: TFeedbackItem;
-	updateData: (id: number, newUpvoteCount: number) => void;
 };
 
-const FeedbackItem = ({ feedbackItem, updateData }: FeedbackItemProps) => {
+const FeedbackItem = ({ feedbackItem }: FeedbackItemProps) => {
+	const { updateUpvoteCount } = useFeedbackItemsContext();
 	const [open, setOpen] = useState(false);
 	const [upvoteCount, setUpvoteCount] = useState(feedbackItem.upvoteCount);
+
+	const dateNow = Date.now();
+	const currentDate = new Date(dateNow - feedbackItem.id).getDate();
 
 	const handleClick = () => {
 		setOpen(!open);
@@ -19,11 +23,11 @@ const FeedbackItem = ({ feedbackItem, updateData }: FeedbackItemProps) => {
 	const handleUpvoteIncrease = async (
 		e: React.MouseEvent<HTMLButtonElement, MouseEvent>
 	) => {
-		setUpvoteCount(prev => ++prev);
+		setUpvoteCount((prev) => ++prev);
 		e.currentTarget.disabled = true;
 		e.stopPropagation();
-		
-		updateData(feedbackItem.id, feedbackItem.upvoteCount+1);
+
+		updateUpvoteCount(feedbackItem.id, feedbackItem.upvoteCount + 1);
 	};
 
 	return (
@@ -46,7 +50,7 @@ const FeedbackItem = ({ feedbackItem, updateData }: FeedbackItemProps) => {
 				<p>{feedbackItem.text}</p>
 			</div>
 
-			<p>{feedbackItem.daysAgo === 0 ? "New" : `${feedbackItem.daysAgo}d`}</p>
+			<p>{currentDate <= 1 ? "New" : `${currentDate}d`}</p>
 		</li>
 	);
 };
