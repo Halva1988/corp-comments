@@ -9,9 +9,10 @@ type FeedbackListProps = {
 	feedbackItems: TFeedbackItem[];
 	errorMessage: string;
 	isLoading: boolean;
+	updateData: (id: number, newUpvoteCount: number) => void;
 };
 
-const FeedbackList = ({filteredItems, feedbackItems, isLoading, errorMessage }: FeedbackListProps) => {
+const FeedbackList = ({filteredItems, feedbackItems, isLoading, errorMessage, updateData }: FeedbackListProps) => {
 	return (
 		<ol className={styles["feedback-list"]}>
 			
@@ -19,8 +20,8 @@ const FeedbackList = ({filteredItems, feedbackItems, isLoading, errorMessage }: 
 
 			{errorMessage && <ErrorMessage message={errorMessage} />}
 
-			{filteredItems.length > 0 ? filteredItems.map((item) => <FeedbackItem key={item.id} feedbackItem={item} />) : feedbackItems.map((item) => (
-				<FeedbackItem key={item.id} feedbackItem={item} />
+			{filteredItems.length > 0 ? filteredItems.map((item) => <FeedbackItem key={item.id} updateData={updateData} feedbackItem={item} />) : feedbackItems.map((item) => (
+				<FeedbackItem key={item.id} updateData={updateData} feedbackItem={item} />
 			))}
 		</ol>
 	);

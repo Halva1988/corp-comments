@@ -20,9 +20,7 @@ app.post("/", (req, res) => {
 
 	fs.readFile(dataFilePath, "utf8", (err, data) => {
 		if (err) {
-			return res
-				.status(500)
-				.json({ error: "Failed to read data file!!!" });
+			return res.status(500).json({ error: "Failed to read data file!!!" });
 		}
 
 		const items = JSON.parse(data);
@@ -34,6 +32,36 @@ app.post("/", (req, res) => {
 			}
 
 			res.status(201).json(newItem);
+		});
+	});
+});
+
+// запрос на изменение upvoteCount по id
+app.patch("/", (req, res) => {
+	const id = req.body.id;
+	const upvoteCount = req.body.upvoteCount;
+
+	fs.readFile(dataFilePath, "utf8", (err, data) => {
+		if (err) {
+			return res.status(500).json({ error: "Failed to read data file!!!" });
+		}
+
+		const items = JSON.parse(data);
+		
+		const itemToUpdate = items.find((item) => item.id === id);
+
+		if (!itemToUpdate) {
+			return res.status(404).json({ error: "Item not found" });
+		}
+
+		itemToUpdate.upvoteCount = upvoteCount ;
+
+		fs.writeFile(dataFilePath, JSON.stringify(items, null, 2), (err) => {
+			if (err) {
+				return res.status(500).json({ error: "Failed to write data file" });
+			}
+
+			res.status(200).json(itemToUpdate);
 		});
 	});
 });

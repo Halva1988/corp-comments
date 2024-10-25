@@ -3,7 +3,7 @@ import HashtagList from "./components/HashtagList/HashtagList";
 import Header from "./components/Container/Header/Header";
 import Container from "./components/Container/Container";
 import Footer from "./components/Footer/Footer";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { TFeedbackItem } from "./lib/types";
 import HashtagItems from "./components/HashtagList/HashtagItems/HashtagItems";
 
@@ -52,9 +52,29 @@ function App() {
 		);
 	};
 
-	const allCompany: Set<string> = new Set(
+	const allCompany: Set<string> = useMemo(() => new Set(
 		feedbackItems.map((item) => item.company)
-	);
+	), [feedbackItems]);
+
+	const updateData = async (id: number, newUpvoteCount: number) => {
+	try {
+		const response = await fetch("http://localhost:3001/", {
+			method: "PATCH",
+			headers: {
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify({
+				id: id,
+				upvoteCount: newUpvoteCount,
+			}),
+		});
+		if (!response.ok) {
+			throw new Error("Network response was not ok");
+		}
+	} catch (error) {
+		console.error("Failed to update item:", error);
+	}
+};
 
 	useEffect(() => {
 		const fetchData = async () => {
@@ -87,6 +107,7 @@ function App() {
 					feedbackItems={feedbackItems}
 					isLoading={isLoading}
 					errorMessage={errorMessage}
+					updateData={updateData}
 				/>
 			</Container>
 			<HashtagList>
@@ -101,5 +122,4 @@ function App() {
 		</div>
 	);
 }
-
 export default App;
