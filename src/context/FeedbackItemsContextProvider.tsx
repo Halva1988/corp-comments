@@ -11,7 +11,7 @@ type TFeedbackItemsContext = {
 	handleFilter: (text: string) => void
   feedbackItems: TFeedbackItem[];
 	filteredItems: TFeedbackItem[];
-  allCompany: Set<string>;
+  allCompany: string[];
   errorMessage: string;
   isLoading: boolean;
 }
@@ -58,10 +58,15 @@ const FeedbackItemsContextProvider = ({children}: FeedbackItemsContextProviderPr
 		}
 	};
 
-	const allCompany: Set<string> = useMemo(
-		() => new Set(feedbackItems.map((item) => item.company)),
-		[feedbackItems]
-	);
+	const allCompany = useMemo(() => {
+    const uniqueCompany: string[] = [];
+    feedbackItems.forEach((item) => {
+      if (!uniqueCompany.includes(item.company)) {
+        uniqueCompany.push(item.company);
+      }
+    });
+    return uniqueCompany;
+  }, [feedbackItems]);
 
 	const updateUpvoteCount = async (id: number, newUpvoteCount: number) => {
 		try {
