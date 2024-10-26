@@ -1,17 +1,17 @@
-import { useFeedbackItemsContext } from "../../../hooks/useFeedbackItemsContext";
+import { useCommentsStore } from "../../../store/feedbackItemsStore";
 
 type HashtagItemsProps = {
   company: string
 }
 
 const HashtagItems = ({ company}: HashtagItemsProps) => {
-  const { handleFilter } = useFeedbackItemsContext();
+  const filterComments = useCommentsStore((state) => state.filterComments);
 
   const firstLetterUpperCase = company[0].toUpperCase() + company.slice(1).toLowerCase();
   
   return (
     <li>
-      <button onClick={() => handleFilter(company)}>#{firstLetterUpperCase}</button>
+      <button onClick={() => filterComments(company)}>#{firstLetterUpperCase}</button>
     </li>
   )
 }

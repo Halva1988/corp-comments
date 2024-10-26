@@ -1,14 +1,17 @@
+import { useCommentsStore } from "../../store/feedbackItemsStore";
+import HashtagItems from "./HashtagItems/HashtagItems";
 import styles from "./HashtagList.module.css";
 
-type HashtagListProps = {
-	children: React.ReactNode
-};
 
-const HashtagList = ({ children }: HashtagListProps) => {
-
+const HashtagList = () => {
+	const allCompany = useCommentsStore((state) => state.allCompany());
+	const uniqueCompany = useCommentsStore((state) => state.uniqueCompany);
+	
 	return (
 		<ul className={styles.hashtags}>
-			{children}
+			{Array.from(uniqueCompany).map((item, index) => (
+					<HashtagItems key={index} company={item} />
+				))}
 		</ul>
 	);
 };

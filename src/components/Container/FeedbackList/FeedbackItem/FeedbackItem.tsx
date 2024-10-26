@@ -1,15 +1,15 @@
-import { useFeedbackItemsContext } from "../../../../hooks/useFeedbackItemsContext";
 import { TriangleUpIcon } from "@radix-ui/react-icons";
 import { TFeedbackItem } from "../../../../lib/types";
 import styles from "./FeedbackItem.module.css";
 import { useState } from "react";
+import { useCommentsStore } from "../../../../store/feedbackItemsStore";
 
 type FeedbackItemProps = {
 	feedbackItem: TFeedbackItem;
 };
 
 const FeedbackItem = ({ feedbackItem }: FeedbackItemProps) => {
-	const { updateUpvoteCount } = useFeedbackItemsContext();
+	const updateUpvoteCount = useCommentsStore((state) => state.updateUpvoteCount);
 	const [open, setOpen] = useState(false);
 	const [upvoteCount, setUpvoteCount] = useState(feedbackItem.upvoteCount);
 

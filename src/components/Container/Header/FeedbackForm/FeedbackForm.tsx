@@ -1,11 +1,13 @@
-import { useFeedbackItemsContext } from "../../../../hooks/useFeedbackItemsContext";
+// import { useFeedbackItemsContext } from "../../../../hooks/useFeedbackItemsContext";
 import { LIMIT_TEXT_LENGTH } from "../../../../lib/constants";
+import { useCommentsStore } from "../../../../store/feedbackItemsStore";
 import styles from "./FeedbackForm.module.css";
 import { useState } from "react";
 
 
 const FeedbackForm = () => {
-	const { handleAddToList } = useFeedbackItemsContext();
+	// const { handleAddToList } = useFeedbackItemsContext();
+	const addComment = useCommentsStore((state) => state.addComment);
 	const [text, setText] = useState<string>("");
 	const [isValid, setIsValid] = useState<boolean>(false);
 	const [isInvalid, setIsInvalid] = useState<boolean>(false);
@@ -24,7 +26,7 @@ const FeedbackForm = () => {
 			setTimeout(() => setIsInvalid(false), 1000);
 			return;
 		}
-		handleAddToList(text);
+		addComment(text);
 		setText("");
 	};
 
