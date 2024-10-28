@@ -1,10 +1,18 @@
 [
   {
     "id": 1729947346236,
-    "upvoteCount": 0,
+    "upvoteCount": 1,
     "badgeLetter": "N",
     "company": "Nike",
     "text": "#Nike great shoes",
+    "daysAgo": 0
+  },
+  {
+    "id": 1730109246177,
+    "upvoteCount": 0,
+    "badgeLetter": "M",
+    "company": "MacDonald's",
+    "text": "#MacDonald's bad food",
     "daysAgo": 0
   }
 ]
